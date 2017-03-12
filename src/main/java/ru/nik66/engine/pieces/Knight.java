@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static ru.nik66.engine.border.Move.AttackMove;
+import static ru.nik66.engine.border.Move.MajorMove;
+
 /**
  * Created by nkotkin on 3/12/17.
  * https://en.wikipedia.org/wiki/Knight_(chess)
@@ -38,7 +41,7 @@ public class Knight extends Piece {
      * @return Legal moves list.
      */
     @Override
-    public Collection<Move> calculateLegalMoves(Board boardArg) {
+    public Collection<Move> calculateLegalMoves(final Board boardArg) {
 
         final List<Move> legalMoves = new ArrayList<>();
 
@@ -53,12 +56,13 @@ public class Knight extends Piece {
                 }
                 final Tile candidateDestinationTile = boardArg.getTile(candidateDestinationCoordinate);
                 if (!candidateDestinationTile.isTileOccupied()) {
-                    legalMoves.add(new Move());
+                    legalMoves.add(new MajorMove(boardArg, this, candidateDestinationCoordinate));
                 } else {
                     final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                     final Alliance pieceAlliance = pieceAtDestination.getPieceAlliance();
                     if (this.getPieceAlliance() != pieceAlliance) {
-                        legalMoves.add(new Move());
+                        legalMoves.add(new AttackMove(boardArg, this, candidateDestinationCoordinate,
+                                pieceAtDestination));
                     }
                 }
             }

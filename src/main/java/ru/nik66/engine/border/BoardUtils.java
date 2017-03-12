@@ -37,26 +37,32 @@ public class BoardUtils {
      * Seven.
      */
     public static final int SEVEN = 7;
+
+    /**
+     * Num tiles per row.
+     */
+    public static final int NUM_TILES_PER_ROW = 8;
     /**
      * Border size.
      */
     public static final int BOARD_SIZE = 64;
+
     /**
      * First column.
      */
-    public static final boolean[] FIRST_COLUMN = null;
+    public static final boolean[] FIRST_COLUMN = initColumn(ZERO);
     /**
      * Second column.
      */
-    public static final boolean[] SECOND_COLUMN = null;
+    public static final boolean[] SECOND_COLUMN = initColumn(ONE);
     /**
      * Seventh column.
      */
-    public static final boolean[] SEVENTH_COLUMN = null;
+    public static final boolean[] SEVENTH_COLUMN = initColumn(SIX);
     /**
      * Eighth column.
      */
-    public static final boolean[] EIGHTH_COLUMN = null;
+    public static final boolean[] EIGHTH_COLUMN = initColumn(SEVEN);
 
     /**
      * Do not create this class.
@@ -66,11 +72,25 @@ public class BoardUtils {
     }
 
     /**
+     * Column initialization.
+     * @param columnNumberArg Column number.
+     * @return Boolean array with column coordinates.
+     */
+    private static boolean[] initColumn(int columnNumberArg) {
+        final boolean[] column = new boolean[BOARD_SIZE];
+        do {
+            column[columnNumberArg] = true;
+            columnNumberArg += NUM_TILES_PER_ROW;
+        } while (columnNumberArg < BOARD_SIZE);
+        return column;
+    }
+
+    /**
      * Check that tile coordinate belongs the border.
      * @param coordinateArg coordinate.
      * @return true if coordinate belongs the board.
      */
-    public static boolean isValidTileCoordinate(int coordinateArg) {
-        return coordinateArg >= 0 && coordinateArg <= BOARD_SIZE;
+    public static boolean isValidTileCoordinate(final int coordinateArg) {
+        return coordinateArg >= ZERO && coordinateArg <= BOARD_SIZE;
     }
 }

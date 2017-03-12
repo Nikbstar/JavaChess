@@ -58,7 +58,7 @@ public abstract class Tile {
      * Tile.
      * @param tileCoordinateArg int Tile coordinate
      */
-    private Tile(int tileCoordinateArg) {
+    private Tile(final int tileCoordinateArg) {
         this.tileCoordinate = tileCoordinateArg;
     }
 
@@ -113,7 +113,7 @@ public abstract class Tile {
          * @param tileCoordinateArg int Tile coordinate.
          * @param pieceOnTileArg Piece on tile.
          */
-        OccupiedTile(int tileCoordinateArg, Piece pieceOnTileArg) {
+        OccupiedTile(int tileCoordinateArg, final Piece pieceOnTileArg) {
             super(tileCoordinateArg);
             this.pieceOnTile = pieceOnTileArg;
         }
