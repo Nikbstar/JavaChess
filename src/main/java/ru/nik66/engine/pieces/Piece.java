@@ -29,7 +29,7 @@ public abstract class Piece {
      * getter for piecePosition.
      * @return piecePosition.
      */
-    protected int getPiecePosition() {
+    public int getPiecePosition() {
         return piecePosition;
     }
 
