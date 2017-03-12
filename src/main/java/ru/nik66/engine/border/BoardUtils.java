@@ -37,10 +37,6 @@ public class BoardUtils {
      * Seven.
      */
     public static final int SEVEN = 7;
-    /**
-     * Eight.
-     */
-    public static final int EIGHT = 8;
 
     /**
      * Num tiles per row.
@@ -67,6 +63,15 @@ public class BoardUtils {
      * Eighth column.
      */
     public static final boolean[] EIGHTH_COLUMN = initColumn(SEVEN);
+
+    /**
+     * Second row.
+     */
+    public static final boolean[] SECOND_ROW = null;
+    /**
+     * Seventh row.
+     */
+    public static final boolean[] SEVENTH_ROW = null;
 
     /**
      * Do not create this class.

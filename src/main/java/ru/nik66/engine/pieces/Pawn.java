@@ -19,7 +19,7 @@ public class Pawn extends Piece {
     /**
      * Candidate move coordinate.
      */
-    private static final int[] CANDIDATE_MOVE_COORDINATE = {8};
+    private static final int[] CANDIDATE_MOVE_COORDINATE = {8, 16};
 
     /**
      * Piece Initialization Constructor.
@@ -27,7 +27,7 @@ public class Pawn extends Piece {
      * @param piecePositionArg Piece position.
      * @param pieceAllianceArg Piece alliance.
      */
-    public Pawn(int piecePositionArg, Alliance pieceAllianceArg) {
+    public Pawn(final int piecePositionArg, final Alliance pieceAllianceArg) {
         super(piecePositionArg, pieceAllianceArg);
     }
 
@@ -38,18 +38,28 @@ public class Pawn extends Piece {
      * @return Move.
      */
     @Override
-    public Collection<Move> calculateLegalMoves(Board boardArg) {
+    public Collection<Move> calculateLegalMoves(final Board boardArg) {
         final List<Move> legalMove = new ArrayList<>();
         for (final int currentCoordinateOffset : CANDIDATE_MOVE_COORDINATE) {
-            int candidateDestinationCoordinate = this.getPiecePosition()
+            final int candidateDestinationCoordinate = this.getPiecePosition()
                     + (this.getPieceAlliance().getDirection() * currentCoordinateOffset);
             if (!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 continue;
             }
-            if (currentCoordinateOffset == BoardUtils.EIGHT
+            if (currentCoordinateOffset == CANDIDATE_MOVE_COORDINATE[BoardUtils.ZERO]
                     && !boardArg.getTile(candidateDestinationCoordinate).isTileOccupied()) {
-                //TODO more work to do here!!!!
+                //TODO more work to do here (deal with pronotions)!!!!
                 legalMove.add(new MajorMove(boardArg, this, candidateDestinationCoordinate));
+            } else if (currentCoordinateOffset == CANDIDATE_MOVE_COORDINATE[BoardUtils.ONE]
+                    && this.isFirstMove()
+                    && (BoardUtils.SECOND_ROW[this.getPiecePosition()] && this.getPieceAlliance().isBlack())
+                    || (BoardUtils.SEVENTH_ROW[this.getPiecePosition()] && this.getPieceAlliance().isWhite())) {
+                final int behindCandidateDestinationCoordinate = this.getPiecePosition()
+                        + (this.getPieceAlliance().getDirection() * CANDIDATE_MOVE_COORDINATE[BoardUtils.ZERO]);
+                if (!boardArg.getTile(behindCandidateDestinationCoordinate).isTileOccupied()
+                        && !boardArg.getTile(candidateDestinationCoordinate).isTileOccupied()) {
+                    legalMove.add(new MajorMove(boardArg, this, candidateDestinationCoordinate));
+                }
             }
         }
         return null;
