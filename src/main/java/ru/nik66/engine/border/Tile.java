@@ -13,11 +13,6 @@ import java.util.Map;
 public abstract class Tile {
 
     /**
-     * Border size.
-     */
-    private static final int BOARD_SIZE = 64;
-
-    /**
      * int Tile coordinate.
      */
     private final int tileCoordinate;
@@ -35,7 +30,7 @@ public abstract class Tile {
 
         final Map<Integer, EmptyTile> emptyTileMap = new HashMap<>();
 
-        for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int i = 0; i < BoardUtils.BOARD_SIZE; i++) {
             emptyTileMap.put(i, new EmptyTile(i));
         }
 

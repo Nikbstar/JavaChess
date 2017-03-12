@@ -4,7 +4,7 @@ import ru.nik66.engine.Alliance;
 import ru.nik66.engine.border.Board;
 import ru.nik66.engine.border.Move;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Created by nkotkin on 3/10/17.
@@ -53,6 +53,6 @@ public abstract class Piece {
      * @param boardArg Border.
      * @return Move.
      */
-    public abstract List<Move> calculateLegalMoves(Board boardArg);
+    public abstract Collection<Move> calculateLegalMoves(Board boardArg);
 
 }

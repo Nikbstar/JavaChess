@@ -3,10 +3,12 @@ package ru.nik66.engine.pieces;
 import com.google.common.collect.ImmutableList;
 import ru.nik66.engine.Alliance;
 import ru.nik66.engine.border.Board;
+import ru.nik66.engine.border.BoardUtils;
 import ru.nik66.engine.border.Move;
 import ru.nik66.engine.border.Tile;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -36,14 +38,19 @@ public class Knight extends Piece {
      * @return Legal moves list.
      */
     @Override
-    public List<Move> calculateLegalMoves(Board boardArg) {
+    public Collection<Move> calculateLegalMoves(Board boardArg) {
 
-        int candidateDestinationCoordinate;
         final List<Move> legalMoves = new ArrayList<>();
 
-        for (final int currentCandidate : CANDIDATE_MOVE_COORDINATES) {
-            candidateDestinationCoordinate = this.getPiecePosition() + currentCandidate;
-            if (true /* isValidTileCoordinate */) {
+        for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
+            final int candidateDestinationCoordinate = this.getPiecePosition() + currentCandidateOffset;
+            if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
+                if (isFirstColumnExclusion(this.getPiecePosition(), currentCandidateOffset)
+                        || isSecondColumnExclusion(this.getPiecePosition(), currentCandidateOffset)
+                        || isSeventhColumnExclusion(this.getPiecePosition(), currentCandidateOffset)
+                        || isEighthColumnExclusion(this.getPiecePosition(), currentCandidateOffset)) {
+                    continue;
+                }
                 final Tile candidateDestinationTile = boardArg.getTile(candidateDestinationCoordinate);
                 if (!candidateDestinationTile.isTileOccupied()) {
                     legalMoves.add(new Move());
@@ -58,6 +65,62 @@ public class Knight extends Piece {
         }
 
         return ImmutableList.copyOf(legalMoves);
+    }
+
+    /**
+     * Check first column position.
+     * @param currentPositionArg Current position.
+     * @param candidateOffsetArg Candidate offset.
+     * @return true if knight move on exclusion tile from first column.
+     */
+    private static boolean isFirstColumnExclusion(final int currentPositionArg, final int candidateOffsetArg) {
+        return BoardUtils.FIRST_COLUMN[currentPositionArg]
+                && (candidateOffsetArg == CANDIDATE_MOVE_COORDINATES[BoardUtils.ZERO]
+                    || candidateOffsetArg == CANDIDATE_MOVE_COORDINATES[BoardUtils.TWO]
+                    || candidateOffsetArg == CANDIDATE_MOVE_COORDINATES[BoardUtils.FOUR]
+                    || candidateOffsetArg == CANDIDATE_MOVE_COORDINATES[BoardUtils.SIX]
+                );
+    }
+
+    /**
+     * Check second column position.
+     * @param currentPositionArg Current position.
+     * @param candidateOffsetArg Candidate offset.
+     * @return true if knight move on exclusion tile from second column.
+     */
+    private static boolean isSecondColumnExclusion(final int currentPositionArg, final int candidateOffsetArg) {
+        return BoardUtils.SECOND_COLUMN[currentPositionArg]
+                && (candidateOffsetArg == CANDIDATE_MOVE_COORDINATES[BoardUtils.TWO]
+                    || candidateOffsetArg == CANDIDATE_MOVE_COORDINATES[BoardUtils.FOUR]
+                );
+    }
+
+    /**
+     * Check seventh column position.
+     * @param currentPositionArg Current position.
+     * @param candidateOffsetArg Candidate offset.
+     * @return true if knight move on exclusion tile from seventh column.
+     */
+    private static boolean isSeventhColumnExclusion(final int currentPositionArg, final int candidateOffsetArg) {
+        return BoardUtils.SEVENTH_COLUMN[currentPositionArg]
+                && (candidateOffsetArg == CANDIDATE_MOVE_COORDINATES[BoardUtils.THREE]
+                    || candidateOffsetArg == CANDIDATE_MOVE_COORDINATES[BoardUtils.FIVE]
+                );
+    }
+
+    /**
+     * Check eithth column position.
+     * @param currentPositionArg Current position.
+     * @param candidateOffsetArg Candidate offset.
+     * @return true if knight move on exclusion tile from eighth column.
+     */
+    private static boolean isEighthColumnExclusion(final int currentPositionArg, final int candidateOffsetArg) {
+        return BoardUtils.EIGHTH_COLUMN[currentPositionArg]
+                && (candidateOffsetArg == CANDIDATE_MOVE_COORDINATES[BoardUtils.ONE]
+                || candidateOffsetArg == CANDIDATE_MOVE_COORDINATES[BoardUtils.THREE]
+                || candidateOffsetArg == CANDIDATE_MOVE_COORDINATES[BoardUtils.FIVE]
+                || candidateOffsetArg == CANDIDATE_MOVE_COORDINATES[BoardUtils.SEVEN]
+        );
     }
 
 }
