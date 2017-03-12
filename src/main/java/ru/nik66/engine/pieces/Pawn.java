@@ -1,5 +1,6 @@
 package ru.nik66.engine.pieces;
 
+import com.google.common.collect.ImmutableList;
 import ru.nik66.engine.Alliance;
 import ru.nik66.engine.border.Board;
 import ru.nik66.engine.border.BoardUtils;
@@ -19,7 +20,7 @@ public class Pawn extends Piece {
     /**
      * Candidate move coordinate.
      */
-    private static final int[] CANDIDATE_MOVE_COORDINATE = {8, 16};
+    private static final int[] CANDIDATE_MOVE_COORDINATE = {8, 16, 7, 9};
 
     /**
      * Piece Initialization Constructor.
@@ -40,17 +41,17 @@ public class Pawn extends Piece {
     @Override
     public Collection<Move> calculateLegalMoves(final Board boardArg) {
         final List<Move> legalMove = new ArrayList<>();
-        for (final int currentCoordinateOffset : CANDIDATE_MOVE_COORDINATE) {
+        for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATE) {
             final int candidateDestinationCoordinate = this.getPiecePosition()
-                    + (this.getPieceAlliance().getDirection() * currentCoordinateOffset);
+                    + (this.getPieceAlliance().getDirection() * currentCandidateOffset);
             if (!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
                 continue;
             }
-            if (currentCoordinateOffset == CANDIDATE_MOVE_COORDINATE[BoardUtils.ZERO]
+            if (currentCandidateOffset == CANDIDATE_MOVE_COORDINATE[BoardUtils.ZERO]
                     && !boardArg.getTile(candidateDestinationCoordinate).isTileOccupied()) {
                 //TODO more work to do here (deal with pronotions)!!!!
                 legalMove.add(new MajorMove(boardArg, this, candidateDestinationCoordinate));
-            } else if (currentCoordinateOffset == CANDIDATE_MOVE_COORDINATE[BoardUtils.ONE]
+            } else if (currentCandidateOffset == CANDIDATE_MOVE_COORDINATE[BoardUtils.ONE]
                     && this.isFirstMove()
                     && (BoardUtils.SECOND_ROW[this.getPiecePosition()] && this.getPieceAlliance().isBlack())
                     || (BoardUtils.SEVENTH_ROW[this.getPiecePosition()] && this.getPieceAlliance().isWhite())) {
@@ -60,9 +61,29 @@ public class Pawn extends Piece {
                         && !boardArg.getTile(candidateDestinationCoordinate).isTileOccupied()) {
                     legalMove.add(new MajorMove(boardArg, this, candidateDestinationCoordinate));
                 }
+            } else if (currentCandidateOffset == CANDIDATE_MOVE_COORDINATE[BoardUtils.TWO]
+                    && !((BoardUtils.EIGHTH_COLUMN[this.getPiecePosition()] && this.getPieceAlliance().isWhite())
+                        || (BoardUtils.FIRST_COLUMN[this.getPiecePosition()] && this.getPieceAlliance().isBlack()))) {
+                if (boardArg.getTile(candidateDestinationCoordinate).isTileOccupied()) {
+                    final Piece pieceOnCandidate = boardArg.getTile(candidateDestinationCoordinate).getPiece();
+                    if (this.getPieceAlliance() != pieceOnCandidate.getPieceAlliance()) {
+                        //TODO more to do here
+                        legalMove.add(new MajorMove(boardArg, this, candidateDestinationCoordinate));
+                    }
+                }
+            } else if (currentCandidateOffset == CANDIDATE_MOVE_COORDINATE[BoardUtils.THREE]
+                    && !((BoardUtils.FIRST_COLUMN[this.getPiecePosition()] && this.getPieceAlliance().isWhite())
+                        || (BoardUtils.EIGHTH_COLUMN[this.getPiecePosition()] && this.getPieceAlliance().isBlack()))) {
+                if (boardArg.getTile(candidateDestinationCoordinate).isTileOccupied()) {
+                    final Piece pieceOnCandidate = boardArg.getTile(candidateDestinationCoordinate).getPiece();
+                    if (this.getPieceAlliance() != pieceOnCandidate.getPieceAlliance()) {
+                        //TODO more to do here
+                        legalMove.add(new MajorMove(boardArg, this, candidateDestinationCoordinate));
+                    }
+                }
             }
         }
-        return null;
+        return ImmutableList.copyOf(legalMove);
     }
 
 }
