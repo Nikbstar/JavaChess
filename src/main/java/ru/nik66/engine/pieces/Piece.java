@@ -16,10 +16,27 @@ public abstract class Piece {
      * int Piece position.
      */
     private final int piecePosition;
+
     /**
      * Alliance Piece alliance.
      */
     private final Alliance pieceAlliance;
+
+    /**
+     * getter for piecePosition.
+     * @return piecePosition.
+     */
+    protected int getPiecePosition() {
+        return piecePosition;
+    }
+
+    /**
+     * Getter for pieceAlliance.
+     * @return pieceAlliance.
+     */
+    public Alliance getPieceAlliance() {
+        return pieceAlliance;
+    }
 
     /**
      * Piece Initialization Constructor.
