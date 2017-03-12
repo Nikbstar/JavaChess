@@ -16,14 +16,14 @@ import static ru.nik66.engine.border.Move.AttackMove;
 
 /**
  * Created by nkotkin on 3/12/17.
- * https://en.wikipedia.org/wiki/Bishop_(chess)
+ * https://en.wikipedia.org/wiki/Rook_(chess)
  */
-public class Bishop extends Piece {
+public class Rook extends Piece {
 
     /**
      * Candidate move vector coordinate.
      */
-    private static final int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-9, -7, 7, 9};
+    private static final int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-8, -1, 1, 8};
 
     /**
      * Piece Initialization Constructor.
@@ -31,7 +31,7 @@ public class Bishop extends Piece {
      * @param piecePositionArg Piece position.
      * @param pieceAllianceArg Piece alliance.
      */
-    public Bishop(int piecePositionArg, Alliance pieceAllianceArg) {
+    Rook(int piecePositionArg, Alliance pieceAllianceArg) {
         super(piecePositionArg, pieceAllianceArg);
     }
 
@@ -79,8 +79,7 @@ public class Bishop extends Piece {
      */
     private static boolean isFirstColumnExclusion(final int currentPositionArg, final int candidateOffsetArg) {
         return BoardUtils.FIRST_COLUMN[currentPositionArg]
-                && (candidateOffsetArg == CANDIDATE_MOVE_VECTOR_COORDINATES[BoardUtils.ZERO]
-                    || candidateOffsetArg == CANDIDATE_MOVE_VECTOR_COORDINATES[BoardUtils.TWO]);
+                && (candidateOffsetArg == CANDIDATE_MOVE_VECTOR_COORDINATES[BoardUtils.ONE]);
     }
 
     /**
@@ -91,8 +90,7 @@ public class Bishop extends Piece {
      */
     private static boolean isEightColumnExclusion(final int currentPositionArg, final int candidateOffsetArg) {
         return BoardUtils.EIGHTH_COLUMN[currentPositionArg]
-                && (candidateOffsetArg == CANDIDATE_MOVE_VECTOR_COORDINATES[BoardUtils.ONE]
-                || candidateOffsetArg == CANDIDATE_MOVE_VECTOR_COORDINATES[BoardUtils.THREE]);
+                && (candidateOffsetArg == CANDIDATE_MOVE_VECTOR_COORDINATES[BoardUtils.TWO]);
     }
 
 }
