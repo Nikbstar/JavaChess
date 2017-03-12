@@ -25,7 +25,7 @@ public abstract class Tile {
     /**
      * Tiles collection.
      */
-    private static final Map<Integer, EmptyTile> EMPTY_TILES = createAllPossibleEmptyTiles();
+    private static final Map<Integer, EmptyTile> EMPTY_TILES_CACHE = createAllPossibleEmptyTiles();
 
     /**
      * Tiles collections initialization.
@@ -39,6 +39,7 @@ public abstract class Tile {
             emptyTileMap.put(i, new EmptyTile(i));
         }
 
+        // return Collections.unmodifiableMap(emptyTileMap);
         return ImmutableMap.copyOf(emptyTileMap);
     }
 
@@ -53,7 +54,7 @@ public abstract class Tile {
         if (pieceArg != null) {
             tile = new OccupiedTile(tileCoordinateArg, pieceArg);
         } else {
-            tile = EMPTY_TILES.get(tileCoordinateArg);
+            tile = EMPTY_TILES_CACHE.get(tileCoordinateArg);
         }
         return tile;
     }
