@@ -73,6 +73,88 @@ public class BoardUtils {
      */
     public static final boolean[] SEVENTH_ROW = null;
 
+    // Standard pieces positions.
+    /**
+     * Black left Rook.
+     */
+    public static final int ROOK_BLACK_LEFT = 0;
+    /**
+     * Black left Knight.
+     */
+    public static final int KNIGHT_BLACK_LEFT = 1;
+    /**
+     * Black left Bishop.
+     */
+    public static final int BISHOP_BLACK_LEFT = 2;
+    /**
+     * Black Queen.
+     */
+    public static final int QUEEN_BLACK = 3;
+    /**
+     * Black King.
+     */
+    public static final int KING_BLACK = 4;
+    /**
+     * Black right Bishop.
+     */
+    public static final int BISHOP_BLACK_RIGHT = 5;
+    /**
+     * Black right Knight.
+     */
+    public static final int KNIGHT_BLACK_RIGHT = 6;
+    /**
+     * Black right Rook.
+     */
+    public static final int ROOK_BLACK_RIGHT = 7;
+    /**
+     * Black first Pawn.
+     */
+    public static final int POWN_BLACK_FIRST = 8;
+    /**
+     * Black last Pawn.
+     */
+    public static final int POWN_BLACK_LAST = 15;
+    /**
+     * White first Pawn.
+     */
+    public static final int POWN_WHITE_FIRST = 48;
+    /**
+     * White last Pawn.
+     */
+    public static final int POWN_WHITE_LAST = 55;
+    /**
+     * White left Rook.
+     */
+    public static final int ROOK_WHITE_LEFT = 56;
+    /**
+     * White left Knight.
+     */
+    public static final int KNIGHT_WHITE_LEFT = 57;
+    /**
+     * White left Bishop.
+     */
+    public static final int BISHOP_WHITE_LEFT = 58;
+    /**
+     * White Queen.
+     */
+    public static final int QUEEN_WHITE = 59;
+    /**
+     * White King.
+     */
+    public static final int KING_WHITE = 60;
+    /**
+     * White right Bishop.
+     */
+    public static final int BISHOP_WHITE_RIGHT = 61;
+    /**
+     * White right Knight.
+     */
+    public static final int KNIGHT_WHITE_RIGHT = 62;
+    /**
+     * White right Rook.
+     */
+    public static final int ROOK_WHITE_RIGHT = 63;
+
     /**
      * Do not create this class.
      */

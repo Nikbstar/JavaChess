@@ -31,7 +31,7 @@ public class Bishop extends Piece {
      * @param piecePositionArg Piece position.
      * @param pieceAllianceArg Piece alliance.
      */
-    public Bishop(int piecePositionArg, Alliance pieceAllianceArg) {
+    public Bishop(final int piecePositionArg, final Alliance pieceAllianceArg) {
         super(piecePositionArg, pieceAllianceArg);
     }
 
