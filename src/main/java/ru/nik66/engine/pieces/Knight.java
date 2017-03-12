@@ -42,9 +42,7 @@ public class Knight extends Piece {
      */
     @Override
     public Collection<Move> calculateLegalMoves(final Board boardArg) {
-
         final List<Move> legalMoves = new ArrayList<>();
-
         for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
             final int candidateDestinationCoordinate = this.getPiecePosition() + currentCandidateOffset;
             if (BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
@@ -67,7 +65,6 @@ public class Knight extends Piece {
                 }
             }
         }
-
         return ImmutableList.copyOf(legalMoves);
     }
 
@@ -75,7 +72,7 @@ public class Knight extends Piece {
      * Check first column position.
      * @param currentPositionArg Current position.
      * @param candidateOffsetArg Candidate offset.
-     * @return true if knight move on exclusion tile from first column.
+     * @return true if move on exclusion tile from first column.
      */
     private static boolean isFirstColumnExclusion(final int currentPositionArg, final int candidateOffsetArg) {
         return BoardUtils.FIRST_COLUMN[currentPositionArg]
