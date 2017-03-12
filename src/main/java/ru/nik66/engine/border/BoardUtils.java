@@ -37,6 +37,10 @@ public class BoardUtils {
      * Seven.
      */
     public static final int SEVEN = 7;
+    /**
+     * Eight.
+     */
+    public static final int EIGHT = 8;
 
     /**
      * Num tiles per row.

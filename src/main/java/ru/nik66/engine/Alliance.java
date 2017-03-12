@@ -8,9 +8,25 @@ public enum Alliance {
     /**
      * White alliance.
      */
-    WHITE,
+    WHITE {
+        @Override
+        public int getDirection() {
+            return -1;
+        }
+    },
     /**
      * Black alliance.
      */
-    BLACK
+    BLACK {
+        @Override
+        public int getDirection() {
+            return 1;
+        }
+    };
+
+    /**
+     * Get alliance direction.
+     * @return -1 if alliance is white and 1 if alliance is black.
+     */
+    public abstract int getDirection();
 }
