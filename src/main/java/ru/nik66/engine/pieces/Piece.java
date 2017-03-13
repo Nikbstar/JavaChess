@@ -13,6 +13,10 @@ import java.util.Collection;
 public abstract class Piece {
 
     /**
+     * Piece type.
+     */
+    private final PieceType pieceType;
+    /**
      * int Piece position.
      */
     private final int piecePosition;
@@ -24,6 +28,14 @@ public abstract class Piece {
      * First move check.
      */
     private final boolean isFirstMove;
+
+    /**
+     * Getter for piece type.
+     * @return piece Type.
+     */
+    public PieceType getPieceType() {
+        return this.pieceType;
+    }
 
     /**
      * getter for piecePosition.
@@ -51,10 +63,12 @@ public abstract class Piece {
 
     /**
      * Piece Initialization Constructor.
+     * @param pieceTypeArg  Piece type.
      * @param piecePositionArg Piece position.
      * @param pieceAllianceArg Piece alliance.
      */
-    Piece(final int piecePositionArg, final Alliance pieceAllianceArg) {
+    Piece(final PieceType pieceTypeArg, final int piecePositionArg, final Alliance pieceAllianceArg) {
+        this.pieceType = pieceTypeArg;
         this.piecePosition = piecePositionArg;
         this.pieceAlliance = pieceAllianceArg;
         // TODO more work here!!!
@@ -76,27 +90,57 @@ public abstract class Piece {
         /**
          * Pawn to string.
          */
-        PAWN("P"),
+        PAWN("P") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
         /**
          * Knight to string.
          */
-        KNIGHT("N"),
+        KNIGHT("N") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
         /**
          * Bishop to string.
          */
-        BISHOP("B"),
+        BISHOP("B") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
         /**
          * Rook to string.
          */
-        ROOK("R"),
+        ROOK("R") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
         /**
          * Queen to string.
          */
-        QUEEN("Q"),
+        QUEEN("Q") {
+            @Override
+            public boolean isKing() {
+                return false;
+            }
+        },
         /**
          * King to string.
          */
-        KING("K");
+        KING("K") {
+            @Override
+            public boolean isKing() {
+                return true;
+            }
+        };
 
         /**
          * piece name.
@@ -115,6 +159,12 @@ public abstract class Piece {
         public String toString() {
             return this.pieceName;
         }
+
+        /**
+         * Check King.
+         * @return true if Piece is king.
+         */
+        public abstract boolean isKing();
 
     }
 

@@ -29,7 +29,7 @@ public class Pawn extends Piece {
      * @param pieceAllianceArg Piece alliance.
      */
     public Pawn(final int piecePositionArg, final Alliance pieceAllianceArg) {
-        super(piecePositionArg, pieceAllianceArg);
+        super(PieceType.PAWN, piecePositionArg, pieceAllianceArg);
     }
 
     /**

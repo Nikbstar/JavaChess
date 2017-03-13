@@ -32,7 +32,7 @@ public class Rook extends Piece {
      * @param pieceAllianceArg Piece alliance.
      */
     public Rook(final int piecePositionArg, final Alliance pieceAllianceArg) {
-        super(piecePositionArg, pieceAllianceArg);
+        super(PieceType.ROOK, piecePositionArg, pieceAllianceArg);
     }
 
     /**

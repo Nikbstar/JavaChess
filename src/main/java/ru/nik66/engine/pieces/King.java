@@ -33,7 +33,7 @@ public class King extends Piece {
      * @param pieceAllianceArg Piece alliance.
      */
     public King(final int piecePositionArg, final Alliance pieceAllianceArg) {
-        super(piecePositionArg, pieceAllianceArg);
+        super(PieceType.KING, piecePositionArg, pieceAllianceArg);
     }
 
     /**

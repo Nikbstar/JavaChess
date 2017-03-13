@@ -9,6 +9,8 @@ import ru.nik66.engine.pieces.Pawn;
 import ru.nik66.engine.pieces.Piece;
 import ru.nik66.engine.pieces.Queen;
 import ru.nik66.engine.pieces.Rook;
+import ru.nik66.engine.player.BlackPlayer;
+import ru.nik66.engine.player.WhitePlayer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,6 +37,15 @@ public class Board {
     private final Collection<Piece> blackPieces;
 
     /**
+     * white player.
+     */
+    private final WhitePlayer whitePlayer;
+    /**
+     * black player.
+     */
+    private final BlackPlayer blackPlayer;
+
+    /**
      * Private default constructor.
      * @param builderArg builder.
      */
@@ -44,6 +55,8 @@ public class Board {
         this.blackPieces = calculateActivePieces(this.gameBoard, Alliance.BLACK);
         final Collection<Move> whiteStandardLegalMove = calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackStandardLegalMove = calculateLegalMoves(this.blackPieces);
+        this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMove, blackStandardLegalMove);
+        this.blackPlayer = new BlackPlayer(this, whiteStandardLegalMove, blackStandardLegalMove);
     }
 
     @Override
@@ -57,6 +70,22 @@ public class Board {
             }
         }
         return builder.toString();
+    }
+
+    /**
+     * Getter for black pieces.
+     * @return black pieces collection.
+     */
+    public Collection<Piece> getBlackPieces() {
+        return this.blackPieces;
+    }
+
+    /**
+     * Getter for white pieces.
+     * @return white pieces collection.
+     */
+    public Collection<Piece> getWhitePieces() {
+        return this.whitePieces;
     }
 
     /**

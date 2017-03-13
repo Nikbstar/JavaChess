@@ -32,7 +32,7 @@ public class Bishop extends Piece {
      * @param pieceAllianceArg Piece alliance.
      */
     public Bishop(final int piecePositionArg, final Alliance pieceAllianceArg) {
-        super(piecePositionArg, pieceAllianceArg);
+        super(PieceType.BISHOP, piecePositionArg, pieceAllianceArg);
     }
 
     /**

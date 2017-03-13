@@ -31,7 +31,7 @@ public class Knight extends Piece {
      * @param pieceAllianceArg PieceAlliance.
      */
     public Knight(final int piecePositionArg, final Alliance pieceAllianceArg) {
-        super(piecePositionArg, pieceAllianceArg);
+        super(PieceType.KNIGHT, piecePositionArg, pieceAllianceArg);
     }
 
     /**
