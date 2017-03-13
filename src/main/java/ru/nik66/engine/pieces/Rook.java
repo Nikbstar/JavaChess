@@ -71,6 +71,11 @@ public class Rook extends Piece {
         return ImmutableList.copyOf(legalMoves);
     }
 
+    @Override
+    public String toString() {
+        return PieceType.ROOK.toString();
+    }
+
     /**
      * Check first column position.
      * @param currentPositionArg Current position.

@@ -71,6 +71,11 @@ public class Bishop extends Piece {
         return ImmutableList.copyOf(legalMoves);
     }
 
+    @Override
+    public String toString() {
+        return PieceType.BISHOP.toString();
+    }
+
     /**
      * Check first column position.
      * @param currentPositionArg Current position.

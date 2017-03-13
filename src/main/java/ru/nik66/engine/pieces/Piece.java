@@ -68,4 +68,54 @@ public abstract class Piece {
      */
     public abstract Collection<Move> calculateLegalMoves(Board boardArg);
 
+    /**
+     * Pieces to string.
+     */
+    public enum PieceType {
+
+        /**
+         * Pawn to string.
+         */
+        PAWN("P"),
+        /**
+         * Knight to string.
+         */
+        KNIGHT("N"),
+        /**
+         * Bishop to string.
+         */
+        BISHOP("B"),
+        /**
+         * Rook to string.
+         */
+        ROOK("R"),
+        /**
+         * Queen to string.
+         */
+        QUEEN("Q"),
+        /**
+         * King to string.
+         */
+        KING("K");
+
+        /**
+         * piece name.
+         */
+        private String pieceName;
+
+        /**
+         * Piece name initializatoin.
+         * @param pieceNameArg piece name.
+         */
+        PieceType(final String pieceNameArg) {
+            this.pieceName = pieceNameArg;
+        }
+
+        @Override
+        public String toString() {
+            return this.pieceName;
+        }
+
+    }
+
 }

@@ -86,4 +86,9 @@ public class Pawn extends Piece {
         return ImmutableList.copyOf(legalMove);
     }
 
+    @Override
+    public String toString() {
+        return PieceType.PAWN.toString();
+    }
+
 }

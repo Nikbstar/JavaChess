@@ -2,16 +2,17 @@ package ru.nik66.engine.border;
 
 import com.google.common.collect.ImmutableList;
 import ru.nik66.engine.Alliance;
-import ru.nik66.engine.pieces.Rook;
-import ru.nik66.engine.pieces.Knight;
 import ru.nik66.engine.pieces.Bishop;
-import ru.nik66.engine.pieces.Queen;
 import ru.nik66.engine.pieces.King;
+import ru.nik66.engine.pieces.Knight;
 import ru.nik66.engine.pieces.Pawn;
 import ru.nik66.engine.pieces.Piece;
+import ru.nik66.engine.pieces.Queen;
+import ru.nik66.engine.pieces.Rook;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,34 @@ public class Board {
         this.gameBoard = createGameBoard(builderArg);
         this.whitePieces = calculateActivePieces(this.gameBoard, Alliance.WHITE);
         this.blackPieces = calculateActivePieces(this.gameBoard, Alliance.BLACK);
+        final Collection<Move> whiteStandardLegalMove = calculateLegalMoves(this.whitePieces);
+        final Collection<Move> blackStandardLegalMove = calculateLegalMoves(this.blackPieces);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < BoardUtils.BOARD_SIZE; i++) {
+            final String tileText = this.gameBoard.get(i).toString();
+            builder.append(String.format("%3s", tileText));
+            if ((i + 1) % BoardUtils.NUM_TILES_PER_ROW == 0) {
+                builder.append("\n");
+            }
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Calculate legal moves.
+     * @param piecesArg pieces collection.
+     * @return legal moves list.
+     */
+    private Collection<Move> calculateLegalMoves(final Collection<Piece> piecesArg) {
+        final List<Move> legalMoves = new ArrayList<>();
+        for (final Piece piece : piecesArg) {
+            legalMoves.addAll(piece.calculateLegalMoves(this));
+        }
+        return ImmutableList.copyOf(legalMoves);
     }
 
     /**
@@ -49,7 +78,7 @@ public class Board {
      * @param allianceArg alliance.
      * @return  Active pieces list.
      */
-    private Collection<Piece> calculateActivePieces(final List<Tile> gameBoardArg, final Alliance allianceArg) {
+    private static Collection<Piece> calculateActivePieces(final List<Tile> gameBoardArg, final Alliance allianceArg) {
         final List<Piece> activePieces = new ArrayList<>();
         for (final Tile tile : gameBoardArg) {
             if (tile.isTileOccupied()) {
@@ -65,7 +94,7 @@ public class Board {
     /**
      * Get Tile coordinate.
      * @param tileCoordinateArg tile Coordinate.
-     * @return null.
+     * @return game board.
      */
     public Tile getTile(final int tileCoordinateArg) {
         return this.gameBoard.get(tileCoordinateArg);
@@ -99,13 +128,24 @@ public class Board {
         builder.setPiece(new Bishop(BoardUtils.BISHOP_BLACK_RIGHT, Alliance.BLACK));
         builder.setPiece(new Knight(BoardUtils.KNIGHT_BLACK_RIGHT, Alliance.BLACK));
         builder.setPiece(new Rook(BoardUtils.ROOK_BLACK_RIGHT, Alliance.BLACK));
-        for (int i = BoardUtils.POWN_BLACK_FIRST; i <= BoardUtils.POWN_BLACK_LAST; i++) {
-            builder.setPiece(new Pawn(i, Alliance.BLACK));
-        }
+        builder.setPiece(new Pawn(BoardUtils.PAWN_BLACK_FIRST, Alliance.BLACK));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_BLACK_SECOND, Alliance.BLACK));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_BLACK_THIRD, Alliance.BLACK));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_BLACK_FOURTH, Alliance.BLACK));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_BLACK_FIFTH, Alliance.BLACK));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_BLACK_SIXTH, Alliance.BLACK));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_BLACK_SEVENTH, Alliance.BLACK));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_BLACK_EIGHTH, Alliance.BLACK));
+
         // White layout.
-        for (int i = BoardUtils.POWN_WHITE_FIRST; i <= BoardUtils.POWN_WHITE_LAST; i++) {
-            builder.setPiece(new Pawn(i, Alliance.WHITE));
-        }
+        builder.setPiece(new Pawn(BoardUtils.PAWN_WHITE_FIRST, Alliance.WHITE));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_WHITE_SECOND, Alliance.WHITE));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_WHITE_THIRD, Alliance.WHITE));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_WHITE_FOURTH, Alliance.WHITE));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_WHITE_FIFTH, Alliance.WHITE));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_WHITE_SIXTH, Alliance.WHITE));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_WHITE_SEVENTH, Alliance.WHITE));
+        builder.setPiece(new Pawn(BoardUtils.PAWN_WHITE_EIGHTH, Alliance.WHITE));
         builder.setPiece(new Rook(BoardUtils.ROOK_WHITE_LEFT, Alliance.WHITE));
         builder.setPiece(new Knight(BoardUtils.KNIGHT_WHITE_LEFT, Alliance.WHITE));
         builder.setPiece(new Bishop(BoardUtils.BISHOP_WHITE_LEFT, Alliance.WHITE));
@@ -137,6 +177,7 @@ public class Board {
          * Default constructor.
          */
         public Builder() {
+            this.boardConfig = new HashMap<>();
         }
 
         /**

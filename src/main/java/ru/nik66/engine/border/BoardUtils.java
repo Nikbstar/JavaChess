@@ -50,28 +50,28 @@ public class BoardUtils {
     /**
      * First column.
      */
-    public static final boolean[] FIRST_COLUMN = initColumn(ZERO);
+    public static final boolean[] FIRST_COLUMN = initColumn(0);
     /**
      * Second column.
      */
-    public static final boolean[] SECOND_COLUMN = initColumn(ONE);
+    public static final boolean[] SECOND_COLUMN = initColumn(1);
     /**
      * Seventh column.
      */
-    public static final boolean[] SEVENTH_COLUMN = initColumn(SIX);
+    public static final boolean[] SEVENTH_COLUMN = initColumn(6);
     /**
      * Eighth column.
      */
-    public static final boolean[] EIGHTH_COLUMN = initColumn(SEVEN);
+    public static final boolean[] EIGHTH_COLUMN = initColumn(7);
 
     /**
      * Second row.
      */
-    public static final boolean[] SECOND_ROW = null;
+    public static final boolean[] SECOND_ROW = initRow(8);
     /**
      * Seventh row.
      */
-    public static final boolean[] SEVENTH_ROW = null;
+    public static final boolean[] SEVENTH_ROW = initRow(48);
 
     // Standard pieces positions.
     /**
@@ -109,19 +109,67 @@ public class BoardUtils {
     /**
      * Black first Pawn.
      */
-    public static final int POWN_BLACK_FIRST = 8;
+    public static final int PAWN_BLACK_FIRST = 8;
     /**
-     * Black last Pawn.
+     * Black second Pawn.
      */
-    public static final int POWN_BLACK_LAST = 15;
+    public static final int PAWN_BLACK_SECOND = 9;
+    /**
+     * Black third Pawn.
+     */
+    public static final int PAWN_BLACK_THIRD = 10;
+    /**
+     * Black fourth Pawn.
+     */
+    public static final int PAWN_BLACK_FOURTH = 11;
+    /**
+     * Black fifth Pawn.
+     */
+    public static final int PAWN_BLACK_FIFTH = 12;
+    /**
+     * Black sixth Pawn.
+     */
+    public static final int PAWN_BLACK_SIXTH = 13;
+    /**
+     * Black seventh Pawn.
+     */
+    public static final int PAWN_BLACK_SEVENTH = 14;
+    /**
+     * Black eighth Pawn.
+     */
+    public static final int PAWN_BLACK_EIGHTH = 15;
     /**
      * White first Pawn.
      */
-    public static final int POWN_WHITE_FIRST = 48;
+    public static final int PAWN_WHITE_FIRST = 48;
+    /**
+     * White second Pawn.
+     */
+    public static final int PAWN_WHITE_SECOND = 49;
+    /**
+     * White third Pawn.
+     */
+    public static final int PAWN_WHITE_THIRD = 50;
+    /**
+     * White fourth Pawn.
+     */
+    public static final int PAWN_WHITE_FOURTH = 51;
+    /**
+     * White fifth Pawn.
+     */
+    public static final int PAWN_WHITE_FIFTH = 52;
+    /**
+     * White sixth Pawn.
+     */
+    public static final int PAWN_WHITE_SIXTH = 53;
+    /**
+     * White seventh Pawn.
+     */
+    public static final int PAWN_WHITE_SEVENTH = 54;
     /**
      * White last Pawn.
      */
-    public static final int POWN_WHITE_LAST = 55;
+    public static final int PAWN_WHITE_EIGHTH = 55;
     /**
      * White left Rook.
      */
@@ -177,11 +225,24 @@ public class BoardUtils {
     }
 
     /**
+     * Row initialization.
+     * @param rowNumberArg Row number.
+     * @return Boolean array with row coordinates.
+     */
+    private static boolean[] initRow(int rowNumberArg) {
+        final boolean[] row = new boolean[BOARD_SIZE];
+        do {
+            row[rowNumberArg] = true;
+            rowNumberArg++;
+        } while (rowNumberArg % NUM_TILES_PER_ROW != ZERO);
+        return row;
+    }
+    /**
      * Check that tile coordinate belongs the border.
      * @param coordinateArg coordinate.
      * @return true if coordinate belongs the board.
      */
     public static boolean isValidTileCoordinate(final int coordinateArg) {
-        return coordinateArg >= ZERO && coordinateArg <= BOARD_SIZE;
+        return coordinateArg >= ZERO && coordinateArg < BOARD_SIZE;
     }
 }
