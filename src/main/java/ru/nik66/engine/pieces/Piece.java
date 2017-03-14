@@ -13,10 +13,6 @@ import java.util.Collection;
 public abstract class Piece {
 
     /**
-     * Hash code constant.
-     */
-    public static final int HASH_CODE_CONSTANT = 31;
-    /**
      * Piece type.
      */
     private final PieceType pieceType;
@@ -57,13 +53,14 @@ public abstract class Piece {
      * @return Hash code.
      */
     private int computeHashCode() {
+        final int prime = 31;
         int result = getPieceType().hashCode();
-        result = HASH_CODE_CONSTANT * result + getPieceAlliance().hashCode();
-        result = HASH_CODE_CONSTANT * result + getPiecePosition();
+        result = prime * result + getPieceAlliance().hashCode();
+        result = prime * result + getPiecePosition();
         if (isFirstMove()) {
-            result = HASH_CODE_CONSTANT * result + 1;
+            result = prime * result + 1;
         } else {
-            result = HASH_CODE_CONSTANT * result + 0;
+            result = prime * result + 0;
         }
         return result;
     }

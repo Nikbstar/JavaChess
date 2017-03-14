@@ -1,6 +1,7 @@
 package ru.nik66.engine.border;
 
 import ru.nik66.engine.border.Board.Builder;
+import ru.nik66.engine.pieces.Pawn;
 import ru.nik66.engine.pieces.Piece;
 
 /**
@@ -39,6 +40,32 @@ public abstract class Move {
         this.destinationCoordinate = destinationCoordinateArg;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + this.getMovedPiece().hashCode();
+        result = prime * result + this.getDestinationCoordinate();
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        boolean result;
+        if (this == other) {
+            result = true;
+        } else {
+            if (!(other instanceof Move)) {
+                result = false;
+            } else {
+                final Move otherMove = (Move) other;
+                result = getDestinationCoordinate() == otherMove.getDestinationCoordinate()
+                        && getMovedPiece().equals(otherMove.getMovedPiece());
+            }
+        }
+        return result;
+    }
+
     /**
      * Get current coordinate.
      * @return current coordinate.
@@ -51,7 +78,7 @@ public abstract class Move {
      * Getter for board.
      * @return board.
      */
-    Board getBoard() {
+    public Board getBoard() {
         return board;
     }
 
@@ -69,6 +96,30 @@ public abstract class Move {
      */
     public int getDestinationCoordinate() {
         return this.destinationCoordinate;
+    }
+
+    /**
+     * Is attack.
+     * @return true if is.
+     */
+    public boolean isAttack() {
+        return false;
+    }
+
+    /**
+     * is castling move.
+     * @return true if is.
+     */
+    public boolean isCastlingMove() {
+        return false;
+    }
+
+    /**
+     * Get attacked piece.
+     * @return attacked piece.
+     */
+    public Piece getAttackedPiece() {
+        return null;
     }
 
     /**
@@ -135,6 +186,28 @@ public abstract class Move {
             this.attackedPiece = attackedPieceArg;
         }
 
+        @Override
+        public int hashCode() {
+            return this.getAttackedPiece().hashCode() + super.hashCode();
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            boolean result;
+            if (this == other) {
+                result = true;
+            } else {
+                if (!(other instanceof AttackMove)) {
+                    result = false;
+                } else {
+                    final AttackMove otherAttackMove = (AttackMove) other;
+                    result = super.equals(otherAttackMove)
+                            && getAttackedPiece().equals(otherAttackMove.getAttackedPiece());
+                }
+            }
+            return result;
+        }
+
         /**
          * Execute move.
          *
@@ -144,6 +217,17 @@ public abstract class Move {
         public Board execute() {
             return null;
         }
+
+        @Override
+        public boolean isAttack() {
+            return true;
+        }
+
+        @Override
+        public Piece getAttackedPiece() {
+            return this.attackedPiece;
+        }
+
     }
 
     /**
@@ -218,6 +302,24 @@ public abstract class Move {
          */
         public PawnJump(final Board boardArg, final Piece movedPieceArg, final int destinationCoordinateArg) {
             super(boardArg, movedPieceArg, destinationCoordinateArg);
+        }
+
+        @Override
+        public Board execute() {
+            final Builder builder = new Builder();
+            for (final Piece piece : this.getBoard().getCurrentPlayer().getActivePieces()) {
+                if (!this.getMovedPiece().equals(piece)) {
+                    builder.setPiece(piece);
+                }
+            }
+            for (final Piece piece : this.getBoard().getCurrentPlayer().getOpponent().getActivePieces()) {
+                builder.setPiece(piece);
+            }
+            final Pawn movedPawn = (Pawn) this.getMovedPiece().movePiece(this);
+            builder.setPiece(movedPawn);
+            builder.setEnPassantPawn(movedPawn);
+            builder.setMoveMaker(this.getBoard().getCurrentPlayer().getOpponent().getAlliance());
+            return builder.build();
         }
 
     }

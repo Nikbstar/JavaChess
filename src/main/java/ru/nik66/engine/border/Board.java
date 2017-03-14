@@ -242,6 +242,10 @@ public class Board {
          * Next move maker.
          */
         private Alliance nextMoveMaker;
+        /**
+         * en Passant Pawn.
+         */
+        private Pawn enPassantPawn;
 
         /**
          * Default constructor.
@@ -278,6 +282,13 @@ public class Board {
             return new Board(this);
         }
 
+        /**
+         * Setter for enPassantPawn.
+         * @param enPassantPawnArg enPassantPawn.
+         */
+        public void setEnPassantPawn(Pawn enPassantPawnArg) {
+            this.enPassantPawn = enPassantPawnArg;
+        }
     }
 
 }
