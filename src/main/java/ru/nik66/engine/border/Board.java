@@ -45,6 +45,10 @@ public class Board {
      * black player.
      */
     private final BlackPlayer blackPlayer;
+    /**
+     * current player.
+     */
+    private final Player currentPlayer;
 
     /**
      * Private default constructor.
@@ -58,6 +62,7 @@ public class Board {
         final Collection<Move> blackStandardLegalMove = calculateLegalMoves(this.blackPieces);
         this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMove, blackStandardLegalMove);
         this.blackPlayer = new BlackPlayer(this, whiteStandardLegalMove, blackStandardLegalMove);
+        this.currentPlayer = null;
     }
 
     @Override
@@ -87,6 +92,14 @@ public class Board {
      */
     public Player getBlackPlayer() {
         return blackPlayer;
+    }
+
+    /**
+     * Getter for current player.
+     * @return current player.
+     */
+    public Player getCurrentPlayer() {
+        return this.currentPlayer;
     }
 
     /**

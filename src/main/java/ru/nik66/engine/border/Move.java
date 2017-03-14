@@ -42,6 +42,12 @@ public abstract class Move {
     }
 
     /**
+     * Execute move.
+     * @return board.
+     */
+    public abstract Board execute();
+
+    /**
      * Major move.
      */
     public static final class MajorMove extends Move {
@@ -55,6 +61,16 @@ public abstract class Move {
          */
         public MajorMove(final Board boardArg, final Piece movedPieceArg, final int destinationCoordinateArg) {
             super(boardArg, movedPieceArg, destinationCoordinateArg);
+        }
+
+        /**
+         * Execute move.
+         *
+         * @return board.
+         */
+        @Override
+        public Board execute() {
+            return null;
         }
     }
 
@@ -80,6 +96,16 @@ public abstract class Move {
                    final Piece attackedPieceArg) {
             super(boardArg, movedPieceArg, destinationCoordinateArg);
             this.attackedPiece = attackedPieceArg;
+        }
+
+        /**
+         * Execute move.
+         *
+         * @return board.
+         */
+        @Override
+        public Board execute() {
+            return null;
         }
     }
 

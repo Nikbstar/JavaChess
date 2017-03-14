@@ -14,6 +14,34 @@ public enum MoveStatus {
         boolean isDone() {
             return true;
         }
+    },
+    /**
+     * Move is not legal.
+     */
+    ILLEGAL_MOVE {
+        /**
+         * Check is done.
+         *
+         * @return true if is done.
+         */
+        @Override
+        boolean isDone() {
+            return false;
+        }
+    },
+    /**
+     * Leaves player in check.
+     */
+    LEAVES_PLAYER_IN_CHECK {
+        /**
+         * Check is done.
+         *
+         * @return true if is done.
+         */
+        @Override
+        boolean isDone() {
+            return false;
+        }
     };
 
     /**

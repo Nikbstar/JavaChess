@@ -73,6 +73,22 @@ public abstract class Player {
     }
 
     /**
+     * Getter for player king.
+     * @return player king.
+     */
+    public King getPlayerKing() {
+        return playerKing;
+    }
+
+    /**
+     * Getter for legalMoves.
+     * @return legalMoves.
+     */
+    public Collection<Move> getLegalMoves() {
+        return legalMoves;
+    }
+
+    /**
      * King.
      * @return King piece.
      */
@@ -148,7 +164,21 @@ public abstract class Player {
      * @return move transition.
      */
     public MoveTransition makeMove(final Move moveArg) {
-        return null;
+        MoveTransition result;
+        if (!isMoveLegal(moveArg)) {
+            result = new MoveTransition(this.board, moveArg, MoveStatus.ILLEGAL_MOVE);
+        } else {
+            final Board transitionBoard = moveArg.execute();
+            final Collection<Move> kingAttacks = Player.calculateAttacksOnTile(
+                    transitionBoard.getCurrentPlayer().getOpponent().getPlayerKing().getPiecePosition(),
+                    transitionBoard.getCurrentPlayer().getLegalMoves());
+            if (!kingAttacks.isEmpty()) {
+                result = new MoveTransition(this.board, moveArg, MoveStatus.LEAVES_PLAYER_IN_CHECK);
+            } else {
+                result = new MoveTransition(transitionBoard, moveArg, MoveStatus.DONE);
+            }
+        }
+        return result;
     }
 
     /**
