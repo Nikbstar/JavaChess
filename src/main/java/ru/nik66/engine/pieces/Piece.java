@@ -13,6 +13,10 @@ import java.util.Collection;
 public abstract class Piece {
 
     /**
+     * Hash code constant.
+     */
+    public static final int HASH_CODE_CONSTANT = 31;
+    /**
      * Piece type.
      */
     private final PieceType pieceType;
@@ -28,6 +32,65 @@ public abstract class Piece {
      * First move check.
      */
     private final boolean isFirstMove;
+    /**
+     * Checked hash code.
+     */
+    private final int cachedHashCode;
+
+    /**
+     * Piece Initialization Constructor.
+     * @param pieceTypeArg  Piece type.
+     * @param piecePositionArg Piece position.
+     * @param pieceAllianceArg Piece alliance.
+     */
+    Piece(final PieceType pieceTypeArg, final int piecePositionArg, final Alliance pieceAllianceArg) {
+        this.pieceType = pieceTypeArg;
+        this.piecePosition = piecePositionArg;
+        this.pieceAlliance = pieceAllianceArg;
+        // TODO more work here!!!
+        this.isFirstMove = false;
+        this.cachedHashCode = computeHashCode();
+    }
+
+    /**
+     * Compute hash code.
+     * @return Hash code.
+     */
+    private int computeHashCode() {
+        int result = getPieceType().hashCode();
+        result = HASH_CODE_CONSTANT * result + getPieceAlliance().hashCode();
+        result = HASH_CODE_CONSTANT * result + getPiecePosition();
+        if (isFirstMove()) {
+            result = HASH_CODE_CONSTANT * result + 1;
+        } else {
+            result = HASH_CODE_CONSTANT * result + 0;
+        }
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        boolean result;
+        if (this == other) {
+            result = true;
+        } else {
+            if (!(other instanceof Piece)) {
+                result = false;
+            } else {
+                final Piece otherPiece = (Piece) other;
+                result = getPiecePosition() == otherPiece.getPiecePosition()
+                        && getPieceType() == otherPiece.getPieceType()
+                        && getPieceAlliance() == otherPiece.getPieceAlliance()
+                        && isFirstMove() == otherPiece.isFirstMove();
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.cachedHashCode;
+    }
 
     /**
      * Getter for piece type.
@@ -59,20 +122,6 @@ public abstract class Piece {
      */
     public boolean isFirstMove() {
         return isFirstMove;
-    }
-
-    /**
-     * Piece Initialization Constructor.
-     * @param pieceTypeArg  Piece type.
-     * @param piecePositionArg Piece position.
-     * @param pieceAllianceArg Piece alliance.
-     */
-    Piece(final PieceType pieceTypeArg, final int piecePositionArg, final Alliance pieceAllianceArg) {
-        this.pieceType = pieceTypeArg;
-        this.piecePosition = piecePositionArg;
-        this.pieceAlliance = pieceAllianceArg;
-        // TODO more work here!!!
-        this.isFirstMove = false;
     }
 
     /**
