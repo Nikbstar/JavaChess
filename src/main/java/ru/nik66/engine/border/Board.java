@@ -1,6 +1,7 @@
 package ru.nik66.engine.border;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import ru.nik66.engine.Alliance;
 import ru.nik66.engine.pieces.Bishop;
 import ru.nik66.engine.pieces.King;
@@ -21,6 +22,7 @@ import java.util.Map;
 
 /**
  * Created by nkotkin on 3/12/17.
+ * board.
  */
 public class Board {
 
@@ -216,6 +218,15 @@ public class Board {
         // White to move.
         builder.setMoveMaker(Alliance.WHITE);
         return builder.build();
+    }
+
+    /**
+     * Getter for all legal moves.
+     * @return All legal moves.
+     */
+    public Iterable<Move> getAllLegalMoves() {
+        return Iterables.unmodifiableIterable(Iterables.concat(this.getWhitePlayer().getLegalMoves(),
+                this.getBlackPlayer().getLegalMoves()));
     }
 
     /**
