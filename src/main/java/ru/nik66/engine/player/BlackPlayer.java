@@ -50,4 +50,17 @@ public class BlackPlayer extends Player {
         return this.getBoard().getWhitePlayer();
     }
 
+    /**
+     * Calculate king castles.
+     *
+     * @param playerLegalsArg    Player legals.
+     * @param opponentsLegalsArg Opponent legals.
+     * @return Moves collection.
+     */
+    @Override
+    protected Collection<Move> calculateKingCastles(Collection<Move> playerLegalsArg,
+                                                    Collection<Move> opponentsLegalsArg) {
+        return null;
+    }
+
 }

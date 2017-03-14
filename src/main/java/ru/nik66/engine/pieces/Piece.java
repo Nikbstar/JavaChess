@@ -148,6 +148,16 @@ public abstract class Piece {
             public boolean isKing() {
                 return false;
             }
+
+            /**
+             * Check Rook.
+             *
+             * @return true if Piece is Rook.
+             */
+            @Override
+            public boolean isRook() {
+                return false;
+            }
         },
         /**
          * Knight to string.
@@ -155,6 +165,16 @@ public abstract class Piece {
         KNIGHT("N") {
             @Override
             public boolean isKing() {
+                return false;
+            }
+
+            /**
+             * Check Rook.
+             *
+             * @return true if Piece is Rook.
+             */
+            @Override
+            public boolean isRook() {
                 return false;
             }
         },
@@ -166,6 +186,16 @@ public abstract class Piece {
             public boolean isKing() {
                 return false;
             }
+
+            /**
+             * Check Rook.
+             *
+             * @return true if Piece is Rook.
+             */
+            @Override
+            public boolean isRook() {
+                return false;
+            }
         },
         /**
          * Rook to string.
@@ -174,6 +204,16 @@ public abstract class Piece {
             @Override
             public boolean isKing() {
                 return false;
+            }
+
+            /**
+             * Check Rook.
+             *
+             * @return true if Piece is Rook.
+             */
+            @Override
+            public boolean isRook() {
+                return true;
             }
         },
         /**
@@ -184,6 +224,16 @@ public abstract class Piece {
             public boolean isKing() {
                 return false;
             }
+
+            /**
+             * Check Rook.
+             *
+             * @return true if Piece is Rook.
+             */
+            @Override
+            public boolean isRook() {
+                return false;
+            }
         },
         /**
          * King to string.
@@ -192,6 +242,16 @@ public abstract class Piece {
             @Override
             public boolean isKing() {
                 return true;
+            }
+
+            /**
+             * Check Rook.
+             *
+             * @return true if Piece is Rook.
+             */
+            @Override
+            public boolean isRook() {
+                return false;
             }
         };
 
@@ -219,6 +279,11 @@ public abstract class Piece {
          */
         public abstract boolean isKing();
 
+        /**
+         * Check Rook.
+         * @return true if Piece is Rook.
+         */
+        public abstract boolean isRook();
     }
 
 }

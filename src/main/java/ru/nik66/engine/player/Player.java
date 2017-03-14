@@ -18,6 +18,35 @@ import java.util.List;
 public abstract class Player {
 
     /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_59 = 59;
+    /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_58 = 58;
+    /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_57 = 57;
+    /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_56 = 56;
+    /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_61 = 61;
+    /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_62 = 62;
+    /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_63 = 63;
+
+    /**
      * board.
      */
     private final Board board;
@@ -54,7 +83,7 @@ public abstract class Player {
      * @param movesArg move.
      * @return Attacks on tile collection.
      */
-    private static Collection<Move> calculateAttacksOnTile(int piecePositionArg, Collection<Move> movesArg) {
+    protected static Collection<Move> calculateAttacksOnTile(int piecePositionArg, Collection<Move> movesArg) {
         final List<Move> attackMoves = new ArrayList<>();
         for (final Move move : movesArg) {
             if (piecePositionArg == move.getDestinationCoordinate()) {
@@ -198,5 +227,14 @@ public abstract class Player {
      * @return opponent.
      */
     public abstract Player getOpponent();
+
+    /**
+     * Calculate king castles.
+     * @param playerLegalsArg Player legals.
+     * @param opponentsLegalsArg Opponent legals.
+     * @return Moves collection.
+     */
+    protected abstract Collection<Move> calculateKingCastles(Collection<Move> playerLegalsArg,
+                                                             Collection<Move> opponentsLegalsArg);
 
 }
