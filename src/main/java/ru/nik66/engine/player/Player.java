@@ -1,5 +1,6 @@
 package ru.nik66.engine.player;
 
+import ru.nik66.engine.Alliance;
 import ru.nik66.engine.border.Board;
 import ru.nik66.engine.border.Move;
 import ru.nik66.engine.pieces.King;
@@ -60,9 +61,72 @@ public abstract class Player {
     }
 
     /**
+     * Check legal move.
+     * @param moveArg move.
+     * @return true if move is legal.
+     */
+    public boolean isMoveLegal(final Move moveArg) {
+        return this.legalMoves.contains(moveArg);
+    }
+
+    //TODO implement these methods below!!!
+    /**
+     * check a check.
+     * @return true if check.
+     */
+    public boolean isInCheck() {
+        return false;
+    }
+
+    /**
+     * check check mate.
+     * @return true if check mate.
+     */
+    public boolean isInCheckMate() {
+        return false;
+    }
+
+    /**
+     * check stale mate.
+     * @return true if stale mate.
+     */
+    public boolean isInStaleMate() {
+        return false;
+    }
+
+    /**
+     * check castled.
+     * @return true if castled.
+     */
+    public boolean isCastled() {
+        return false;
+    }
+
+    /**
+     * make move.
+     * @param moveArg move.
+     * @return move transition.
+     */
+    public MoveTransition makeMove(final Move moveArg) {
+        return null;
+    }
+
+    /**
      * Active pieces collection.
      * @return Pieces collection.
      */
     public abstract Collection<Piece> getActivePieces();
+
+    /**
+     * Get player alliance.
+     * @return alliance.
+     */
+    public abstract Alliance getAlliance();
+
+    /**
+     * get opponent.
+     * @return opponent.
+     */
+    public abstract Player getOpponent();
 
 }

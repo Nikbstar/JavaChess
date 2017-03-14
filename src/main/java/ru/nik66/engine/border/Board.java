@@ -10,6 +10,7 @@ import ru.nik66.engine.pieces.Piece;
 import ru.nik66.engine.pieces.Queen;
 import ru.nik66.engine.pieces.Rook;
 import ru.nik66.engine.player.BlackPlayer;
+import ru.nik66.engine.player.Player;
 import ru.nik66.engine.player.WhitePlayer;
 
 import java.util.ArrayList;
@@ -70,6 +71,22 @@ public class Board {
             }
         }
         return builder.toString();
+    }
+
+    /**
+     * Getter for white player.
+     * @return whitePlayer
+     */
+    public Player getWhitePlayer() {
+        return whitePlayer;
+    }
+
+    /**
+     * Getter for black player.
+     * @return blackPlayer.
+     */
+    public Player getBlackPlayer() {
+        return blackPlayer;
     }
 
     /**

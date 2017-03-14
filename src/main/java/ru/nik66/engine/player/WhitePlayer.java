@@ -1,5 +1,6 @@
 package ru.nik66.engine.player;
 
+import ru.nik66.engine.Alliance;
 import ru.nik66.engine.border.Board;
 import ru.nik66.engine.border.Move;
 import ru.nik66.engine.pieces.Piece;
@@ -28,6 +29,26 @@ public class WhitePlayer extends Player {
     @Override
     public Collection<Piece> getActivePieces() {
         return this.getBoard().getWhitePieces();
+    }
+
+    /**
+     * Get player alliance.
+     *
+     * @return alliance.
+     */
+    @Override
+    public Alliance getAlliance() {
+        return Alliance.WHITE;
+    }
+
+    /**
+     * get opponent.
+     *
+     * @return opponent.
+     */
+    @Override
+    public Player getOpponent() {
+        return this.getBoard().getBlackPlayer();
     }
 
 }
