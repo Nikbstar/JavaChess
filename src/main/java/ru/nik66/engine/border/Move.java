@@ -46,7 +46,7 @@ public abstract class Move {
      * Getter for movedPiece.
      * @return movedPiece.
      */
-    Piece getMovedPiece() {
+    public Piece getMovedPiece() {
         return movedPiece;
     }
 
@@ -98,7 +98,7 @@ public abstract class Move {
                 builder.setPiece(piece);
             }
             //move the moved piece!
-            builder.setPiece(null);
+            builder.setPiece(this.getMovedPiece().movePiece(this));
             builder.setMoveMaker(this.getBoard().getCurrentPlayer().getOpponent().getAlliance());
             return builder.build();
         }

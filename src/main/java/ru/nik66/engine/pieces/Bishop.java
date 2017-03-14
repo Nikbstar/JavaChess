@@ -71,6 +71,17 @@ public class Bishop extends Piece {
         return ImmutableList.copyOf(legalMoves);
     }
 
+    /**
+     * Move piece.
+     *
+     * @param moveArg move.
+     * @return piece.
+     */
+    @Override
+    public Bishop movePiece(final Move moveArg) {
+        return new Bishop(moveArg.getDestinationCoordinate(), moveArg.getMovedPiece().getPieceAlliance());
+    }
+
     @Override
     public String toString() {
         return PieceType.BISHOP.toString();

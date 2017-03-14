@@ -71,6 +71,17 @@ public class Rook extends Piece {
         return ImmutableList.copyOf(legalMoves);
     }
 
+    /**
+     * Move piece.
+     *
+     * @param moveArg move.
+     * @return piece.
+     */
+    @Override
+    public Rook movePiece(Move moveArg) {
+        return new Rook(moveArg.getDestinationCoordinate(), moveArg.getMovedPiece().getPieceAlliance());
+    }
+
     @Override
     public String toString() {
         return PieceType.ROOK.toString();

@@ -83,6 +83,13 @@ public abstract class Piece {
     public abstract Collection<Move> calculateLegalMoves(Board boardArg);
 
     /**
+     * Move piece.
+     * @param moveArg move.
+     * @return piece.
+     */
+    public abstract Piece movePiece(Move moveArg);
+
+    /**
      * Pieces to string.
      */
     public enum PieceType {
