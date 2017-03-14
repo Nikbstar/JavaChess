@@ -1,6 +1,7 @@
 package ru.nik66.engine.player;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import ru.nik66.engine.Alliance;
 import ru.nik66.engine.border.Board;
 import ru.nik66.engine.border.Move;
@@ -39,13 +40,15 @@ public abstract class Player {
      * Player initialization constructor.
      * @param boardArg board.
      * @param legalMovesArg legal moves.
-     * @param opponentMoves opponent moves.
+     * @param opponentMovesArg opponent moves.
      */
-    Player(final Board boardArg, final Collection<Move> legalMovesArg, final Collection<Move> opponentMoves) {
+    Player(final Board boardArg, final Collection<Move> legalMovesArg, final Collection<Move> opponentMovesArg) {
         this.board = boardArg;
         this.playerKing = establishKing();
-        this.legalMoves = legalMovesArg;
-        this.isInCheck = !Player.calculateAttacksOnTile(this.playerKing.getPiecePosition(), opponentMoves).isEmpty();
+        this.legalMoves = ImmutableList.copyOf(
+                Iterables.concat(legalMovesArg, calculateKingCastles(legalMovesArg, opponentMovesArg))
+        );
+        this.isInCheck = !Player.calculateAttacksOnTile(this.playerKing.getPiecePosition(), opponentMovesArg).isEmpty();
     }
 
     /**
@@ -54,7 +57,8 @@ public abstract class Player {
      * @param movesArg move.
      * @return Attacks on tile collection.
      */
-    protected static Collection<Move> calculateAttacksOnTile(int piecePositionArg, Collection<Move> movesArg) {
+    protected static Collection<Move> calculateAttacksOnTile(final int piecePositionArg,
+                                                             final Collection<Move> movesArg) {
         final List<Move> attackMoves = new ArrayList<>();
         for (final Move move : movesArg) {
             if (piecePositionArg == move.getDestinationCoordinate()) {

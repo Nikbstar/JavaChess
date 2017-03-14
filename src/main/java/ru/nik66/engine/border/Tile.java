@@ -75,6 +75,14 @@ public abstract class Tile {
     public abstract Piece getPiece();
 
     /**
+     * Get tile coordinate.
+     * @return tile coordinate.
+     */
+    public int getTileCoordinate() {
+        return this.tileCoordinate;
+    }
+
+    /**
      * Empty Tile.
      */
     public static final class EmptyTile extends Tile {
@@ -118,7 +126,7 @@ public abstract class Tile {
          * @param tileCoordinateArg int Tile coordinate.
          * @param pieceOnTileArg Piece on tile.
          */
-        OccupiedTile(int tileCoordinateArg, final Piece pieceOnTileArg) {
+        OccupiedTile(final int tileCoordinateArg, final Piece pieceOnTileArg) {
             super(tileCoordinateArg);
             this.pieceOnTile = pieceOnTileArg;
         }

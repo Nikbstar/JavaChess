@@ -286,7 +286,7 @@ public class Board {
          * Setter for enPassantPawn.
          * @param enPassantPawnArg enPassantPawn.
          */
-        public void setEnPassantPawn(Pawn enPassantPawnArg) {
+        public void setEnPassantPawn(final Pawn enPassantPawnArg) {
             this.enPassantPawn = enPassantPawnArg;
         }
     }

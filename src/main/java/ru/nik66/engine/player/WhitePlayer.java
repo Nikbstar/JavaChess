@@ -6,6 +6,7 @@ import ru.nik66.engine.border.Board;
 import ru.nik66.engine.border.Move;
 import ru.nik66.engine.border.Tile;
 import ru.nik66.engine.pieces.Piece;
+import ru.nik66.engine.pieces.Rook;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -92,8 +93,8 @@ public class WhitePlayer extends Player {
      * @return Moves collection.
      */
     @Override
-    protected Collection<Move> calculateKingCastles(Collection<Move> playerLegalsArg,
-                                                    Collection<Move> opponentsLegalsArg) {
+    protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegalsArg,
+                                                    final Collection<Move> opponentsLegalsArg) {
         final List<Move> kingCastles = new ArrayList<>();
         if (this.getPlayerKing().isFirstMove() && !this.isInCheck()) {
             // Whites king side castle
@@ -104,8 +105,12 @@ public class WhitePlayer extends Player {
                     if (Player.calculateAttacksOnTile(TILE_COORDINATE_61, opponentsLegalsArg).isEmpty()
                             && Player.calculateAttacksOnTile(TILE_COORDINATE_62, opponentsLegalsArg).isEmpty()
                             && rookTile.getPiece().getPieceType().isRook()) {
-                        //TODO add a castlemove!
-                        kingCastles.add(null);
+                        kingCastles.add(new Move.KingSideCastleMove(this.getBoard(),
+                                                                    this.getPlayerKing(),
+                                                                    TILE_COORDINATE_62,
+                                                                    (Rook) rookTile.getPiece(),
+                                                                    rookTile.getTileCoordinate(),
+                                                                    TILE_COORDINATE_61));
                     }
                 }
             }
@@ -114,8 +119,12 @@ public class WhitePlayer extends Player {
                     && !this.getBoard().getTile(TILE_COORDINATE_57).isTileOccupied()) {
                 final Tile rookTile = this.getBoard().getTile(TILE_COORDINATE_56);
                 if (rookTile.isTileOccupied() && rookTile.getPiece().isFirstMove()) {
-                    //TODO add a castlemove!
-                    kingCastles.add(null);
+                    kingCastles.add(new Move.QueenSideCastleMove(this.getBoard(),
+                                                                 this.getPlayerKing(),
+                                                                 TILE_COORDINATE_58,
+                                                                 (Rook) rookTile.getPiece(),
+                                                                 rookTile.getTileCoordinate(),
+                                                                 TILE_COORDINATE_59));
                 }
             }
         }

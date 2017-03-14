@@ -43,7 +43,7 @@ public class King extends Piece {
      * @return Move.
      */
     @Override
-    public Collection<Move> calculateLegalMoves(Board boardArg) {
+    public Collection<Move> calculateLegalMoves(final Board boardArg) {
         final List<Move> legalMoves = new ArrayList<>();
         for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
             final int candidateDestinationCoordinate = this.getPiecePosition() + currentCandidateOffset;
@@ -75,7 +75,7 @@ public class King extends Piece {
      * @return piece.
      */
     @Override
-    public King movePiece(Move moveArg) {
+    public King movePiece(final Move moveArg) {
         return new King(moveArg.getDestinationCoordinate(), moveArg.getMovedPiece().getPieceAlliance());
     }
 
