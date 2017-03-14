@@ -5,4 +5,21 @@ package ru.nik66.engine.player;
  * move status.
  */
 public enum MoveStatus {
+
+    /**
+     * Done move status.
+     */
+    DONE {
+        @Override
+        boolean isDone() {
+            return true;
+        }
+    };
+
+    /**
+     * Check is done.
+     * @return true if is done.
+     */
+    abstract boolean isDone();
+
 }

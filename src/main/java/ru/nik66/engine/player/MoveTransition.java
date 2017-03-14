@@ -36,4 +36,13 @@ public class MoveTransition {
         this.moveStatus = moveStatusArg;
     }
 
+    /**
+     * getter for moveStatus.
+     * @return moveStatus.
+     */
+    public MoveStatus getMoveStatus() {
+        return moveStatus;
+    }
+
+
 }

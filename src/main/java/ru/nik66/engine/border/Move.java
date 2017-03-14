@@ -34,6 +34,14 @@ public abstract class Move {
     }
 
     /**
+     * getter for destinationCoordinate.
+     * @return destinationCoordinate.
+     */
+    public int getDestinationCoordinate() {
+        return this.destinationCoordinate;
+    }
+
+    /**
      * Major move.
      */
     public static final class MajorMove extends Move {

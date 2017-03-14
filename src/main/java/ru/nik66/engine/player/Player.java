@@ -1,12 +1,15 @@
 package ru.nik66.engine.player;
 
+import com.google.common.collect.ImmutableList;
 import ru.nik66.engine.Alliance;
 import ru.nik66.engine.border.Board;
 import ru.nik66.engine.border.Move;
 import ru.nik66.engine.pieces.King;
 import ru.nik66.engine.pieces.Piece;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by nkotkin on 3/13/17.
@@ -26,6 +29,11 @@ public abstract class Player {
      * legal moves.
      */
     private final Collection<Move> legalMoves;
+    /**
+     * Check a check.
+     */
+    private final boolean isInCheck;
+
 
     /**
      * Player initialization constructor.
@@ -37,6 +45,23 @@ public abstract class Player {
         this.board = boardArg;
         this.playerKing = establishKing();
         this.legalMoves = legalMovesArg;
+        this.isInCheck = !Player.calculateAttacksOnTile(this.playerKing.getPiecePosition(), opponentMoves).isEmpty();
+    }
+
+    /**
+     * Calculate attacks on tile.
+     * @param piecePositionArg piece position.
+     * @param movesArg move.
+     * @return Attacks on tile collection.
+     */
+    private static Collection<Move> calculateAttacksOnTile(int piecePositionArg, Collection<Move> movesArg) {
+        final List<Move> attackMoves = new ArrayList<>();
+        for (final Move move : movesArg) {
+            if (piecePositionArg == move.getDestinationCoordinate()) {
+                attackMoves.add(move);
+            }
+        }
+        return ImmutableList.copyOf(attackMoves);
     }
 
     /**
@@ -69,13 +94,12 @@ public abstract class Player {
         return this.legalMoves.contains(moveArg);
     }
 
-    //TODO implement these methods below!!!
     /**
      * check a check.
      * @return true if check.
      */
     public boolean isInCheck() {
-        return false;
+        return this.isInCheck;
     }
 
     /**
@@ -83,7 +107,7 @@ public abstract class Player {
      * @return true if check mate.
      */
     public boolean isInCheckMate() {
-        return false;
+        return this.isInCheck && !hasEscapeMoves();
     }
 
     /**
@@ -91,15 +115,31 @@ public abstract class Player {
      * @return true if stale mate.
      */
     public boolean isInStaleMate() {
-        return false;
+        return !this.isInCheck && !hasEscapeMoves();
     }
 
+    //TODO implement these methods below!!!
     /**
      * check castled.
      * @return true if castled.
      */
     public boolean isCastled() {
         return false;
+    }
+
+    /**
+     * Has escape moves?
+     * @return true if it.
+     */
+    protected boolean hasEscapeMoves() {
+        boolean result = false;
+        for (final Move move : this.legalMoves) {
+            final MoveTransition transition = makeMove(move);
+            if (transition.getMoveStatus().isDone()) {
+                result = true;
+            }
+        }
+        return result;
     }
 
     /**
