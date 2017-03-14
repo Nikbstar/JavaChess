@@ -1,5 +1,6 @@
 package ru.nik66.engine.border;
 
+import ru.nik66.engine.border.Board.Builder;
 import ru.nik66.engine.pieces.Piece;
 
 /**
@@ -31,6 +32,22 @@ public abstract class Move {
         this.board = boardArg;
         this.movedPiece = movedPieceArg;
         this.destinationCoordinate = destinationCoordinateArg;
+    }
+
+    /**
+     * Getter for board.
+     * @return board.
+     */
+    Board getBoard() {
+        return board;
+    }
+
+    /**
+     * Getter for movedPiece.
+     * @return movedPiece.
+     */
+    Piece getMovedPiece() {
+        return movedPiece;
     }
 
     /**
@@ -70,7 +87,20 @@ public abstract class Move {
          */
         @Override
         public Board execute() {
-            return null;
+            final Builder builder = new Builder();
+            for (final Piece piece : this.getBoard().getCurrentPlayer().getActivePieces()) {
+                //TODO hashcode and equals for pieces
+                if (!this.getMovedPiece().equals(piece)) {
+                    builder.setPiece(piece);
+                }
+            }
+            for (final Piece piece : this.getBoard().getCurrentPlayer().getOpponent().getActivePieces()) {
+                builder.setPiece(piece);
+            }
+            //move the moved piece!
+            builder.setPiece(null);
+            builder.setMoveMaker(this.getBoard().getCurrentPlayer().getOpponent().getAlliance());
+            return builder.build();
         }
     }
 

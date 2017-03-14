@@ -54,7 +54,7 @@ public class Board {
      * Private default constructor.
      * @param builderArg builder.
      */
-    private Board(Builder builderArg) {
+    private Board(final Builder builderArg) {
         this.gameBoard = createGameBoard(builderArg);
         this.whitePieces = calculateActivePieces(this.gameBoard, Alliance.WHITE);
         this.blackPieces = calculateActivePieces(this.gameBoard, Alliance.BLACK);
@@ -62,7 +62,7 @@ public class Board {
         final Collection<Move> blackStandardLegalMove = calculateLegalMoves(this.blackPieces);
         this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMove, blackStandardLegalMove);
         this.blackPlayer = new BlackPlayer(this, whiteStandardLegalMove, blackStandardLegalMove);
-        this.currentPlayer = null;
+        this.currentPlayer = builderArg.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
     }
 
     @Override
