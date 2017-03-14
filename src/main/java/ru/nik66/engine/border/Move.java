@@ -3,6 +3,7 @@ package ru.nik66.engine.border;
 import ru.nik66.engine.border.Board.Builder;
 import ru.nik66.engine.pieces.Pawn;
 import ru.nik66.engine.pieces.Piece;
+import ru.nik66.engine.pieces.Rook;
 
 /**
  * Created by nkotkin on 3/12/17.
@@ -330,14 +331,69 @@ public abstract class Move {
     abstract static class CastleMove extends Move {
 
         /**
+         * Castle rook.
+         */
+        private final Rook castleRook;
+        /**
+         * Castle rook start.
+         */
+        private final int castleRookStart;
+        /**
+         * Castle rook destination.
+         */
+        private final int castleRookDestination;
+
+        /**
          * Constructor for move initialization.
          *
          * @param boardArg                 Board.
          * @param movedPieceArg            Moved piece.
          * @param destinationCoordinateArg Destination coordinate.
+         * @param castleRookArg            Castle Rook.
+         * @param castleRookStartArg       Castle Rook start.
+         * @param castleRookDestinationArg Castle Rook destination.
          */
-        CastleMove(final Board boardArg, final Piece movedPieceArg, final int destinationCoordinateArg) {
+        CastleMove(final Board boardArg, final Piece movedPieceArg, final int destinationCoordinateArg,
+                   final Rook castleRookArg, final int castleRookStartArg, final int castleRookDestinationArg) {
             super(boardArg, movedPieceArg, destinationCoordinateArg);
+            this.castleRook = castleRookArg;
+            this.castleRookStart = castleRookStartArg;
+            this.castleRookDestination = castleRookDestinationArg;
+        }
+
+        /**
+         * Getter for castleRook.
+         * @return castleRook.
+         */
+        public Rook getCastleRook() {
+            return this.castleRook;
+        }
+
+        /**
+         * Check castling move.
+         * @return true if it is.
+         */
+        @Override
+        public boolean isCastlingMove() {
+            return true;
+        }
+
+        @Override
+        public Board execute() {
+            final Builder builder = new Builder();
+            for (final Piece piece : this.getBoard().getCurrentPlayer().getActivePieces()) {
+                if (!this.getMovedPiece().equals(piece) && !this.castleRook.equals(piece)) {
+                    builder.setPiece(piece);
+                }
+            }
+            for (final Piece piece : this.getBoard().getCurrentPlayer().getOpponent().getActivePieces()) {
+                builder.setPiece(piece);
+            }
+            builder.setPiece(this.getMovedPiece().movePiece(this));
+            //TODO look into the first move on normal pieces.
+            builder.setPiece(new Rook(this.castleRookDestination, this.castleRook.getPieceAlliance()));
+            builder.setMoveMaker(this.getBoard().getCurrentPlayer().getOpponent().getAlliance());
+            return builder.build();
         }
 
     }
@@ -353,9 +409,23 @@ public abstract class Move {
          * @param boardArg                 Board.
          * @param movedPieceArg            Moved piece.
          * @param destinationCoordinateArg Destination coordinate.
+         * @param castleRookArg            the castle rook arg
+         * @param castleRookStartArg       the castle rook start arg
+         * @param castleRookDestinationArg the castle rook destination arg
          */
-        public KingSideCastleMove(final Board boardArg, final Piece movedPieceArg, final int destinationCoordinateArg) {
-            super(boardArg, movedPieceArg, destinationCoordinateArg);
+        public KingSideCastleMove(final Board boardArg,
+                                  final Piece movedPieceArg,
+                                  final int destinationCoordinateArg,
+                                  final Rook castleRookArg,
+                                  final int castleRookStartArg,
+                                  final int castleRookDestinationArg) {
+            super(boardArg, movedPieceArg, destinationCoordinateArg,
+                    castleRookArg, castleRookStartArg, castleRookDestinationArg);
+        }
+
+        @Override
+        public String toString() {
+            return "0-0";
         }
 
     }
@@ -371,11 +441,23 @@ public abstract class Move {
          * @param boardArg                 Board.
          * @param movedPieceArg            Moved piece.
          * @param destinationCoordinateArg Destination coordinate.
+         * @param castleRookArg            the castle rook arg
+         * @param castleRookStartArg       the castle rook start arg
+         * @param castleRookDestinationArg the castle rook destination arg
          */
         public QueenSideCastleMove(final Board boardArg,
                                    final Piece movedPieceArg,
-                                   final int destinationCoordinateArg) {
-            super(boardArg, movedPieceArg, destinationCoordinateArg);
+                                   final int destinationCoordinateArg,
+                                   final Rook castleRookArg,
+                                   final int castleRookStartArg,
+                                   final int castleRookDestinationArg) {
+            super(boardArg, movedPieceArg, destinationCoordinateArg,
+                    castleRookArg, castleRookStartArg, castleRookDestinationArg);
+        }
+
+        @Override
+        public String toString() {
+            return "0-0-0";
         }
 
     }

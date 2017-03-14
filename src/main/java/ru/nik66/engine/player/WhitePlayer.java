@@ -18,6 +18,35 @@ import java.util.List;
 public class WhitePlayer extends Player {
 
     /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_59 = 59;
+    /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_58 = 58;
+    /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_57 = 57;
+    /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_56 = 56;
+    /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_61 = 61;
+    /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_62 = 62;
+    /**
+     * Tile coordinate.
+     */
+    static final int TILE_COORDINATE_63 = 63;
+
+    /**
      * White player initialization constructor.
      * @param boardArg board.
      * @param whiteStandardLegalMoveArg white standard legal moves.

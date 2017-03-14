@@ -1,17 +1,50 @@
 package ru.nik66.engine.player;
 
+import com.google.common.collect.ImmutableList;
 import ru.nik66.engine.Alliance;
 import ru.nik66.engine.border.Board;
 import ru.nik66.engine.border.Move;
+import ru.nik66.engine.border.Tile;
 import ru.nik66.engine.pieces.Piece;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by nkotkin on 3/13/17.
  * Black player.
  */
 public class BlackPlayer extends Player {
+
+    /**
+     * Tile coordinate.
+     */
+    public static final int TILE_COORDINATE_5 = 5;
+    /**
+     * Tile coordinate.
+     */
+    public static final int TILE_COORDINATE_6 = 6;
+    /**
+     * Tile coordinate.
+     */
+    public static final int TILE_COORDINATE_7 = 7;
+    /**
+     * Tile coordinate.
+     */
+    public static final int TILE_COORDINATE_1 = 1;
+    /**
+     * Tile coordinate.
+     */
+    public static final int TILE_COORDINATE_2 = 2;
+    /**
+     * Tile coordinate.
+     */
+    public static final int TILE_COORDINATE_3 = 3;
+    /**
+     * Tile coordinate.
+     */
+    public static final int TILE_COORDINATE_0 = 0;
 
     /**
      * Black player initialization constructor.
@@ -60,7 +93,31 @@ public class BlackPlayer extends Player {
     @Override
     protected Collection<Move> calculateKingCastles(Collection<Move> playerLegalsArg,
                                                     Collection<Move> opponentsLegalsArg) {
-        return null;
-    }
+        final List<Move> kingCastles = new ArrayList<>();
+        if (this.getPlayerKing().isFirstMove() && !this.isInCheck()) {
+            // Black king side castle
+            if (!this.getBoard().getTile(TILE_COORDINATE_5).isTileOccupied()
+                    && !this.getBoard().getTile(TILE_COORDINATE_6).isTileOccupied()) {
+                final Tile rookTile = this.getBoard().getTile(TILE_COORDINATE_7);
+                if (rookTile.isTileOccupied() && rookTile.getPiece().isFirstMove()) {
+                    if (Player.calculateAttacksOnTile(TILE_COORDINATE_5, opponentsLegalsArg).isEmpty()
+                            && Player.calculateAttacksOnTile(TILE_COORDINATE_6, opponentsLegalsArg).isEmpty()
+                            && rookTile.getPiece().getPieceType().isRook()) {
+                        //TODO add a castlemove!
+                        kingCastles.add(null);
+                    }
+                }
+            }
+            if (this.getBoard().getTile(TILE_COORDINATE_1).isTileOccupied()
+                    && !this.getBoard().getTile(TILE_COORDINATE_2).isTileOccupied()
+                    && !this.getBoard().getTile(TILE_COORDINATE_3).isTileOccupied()) {
+                final Tile rookTile = this.getBoard().getTile(TILE_COORDINATE_0);
+                if (rookTile.isTileOccupied() && rookTile.getPiece().isFirstMove()) {
+                    //TODO add a castlemove!
+                    kingCastles.add(null);
+                }
+            }
+        }
+        return ImmutableList.copyOf(kingCastles);    }
 
 }
